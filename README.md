@@ -23,7 +23,6 @@ As of the time of writing this, the mod will log:
 <details>
 <summary></summary>
 <br>
-As of the time of writing this, the mod will log:
    <ul>
       <li>Logging when and why a piston was unable to extend</li>
       <li>Logging in which tick something happens to a piston</li>
@@ -37,7 +36,6 @@ As of the time of writing this, the mod will log:
 <details>
 <summary></summary>
 <br>
-As of the time of writing this, the mod will log:
    <ul>
       <li>Setting to ignore pistons at the specified coordinates</li>
       <li>Piston "naming" to recognize them easily</li>
