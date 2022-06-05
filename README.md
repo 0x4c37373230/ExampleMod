@@ -40,6 +40,26 @@ As of the time of writing this, the mod will log:
   </ul> 
 </details>
 
+## Injecting
+
+Download and run the [Xenos](https://github.com/DarthTon/Xenos) dll injector. In the **Process selection** section; select **nNew** and open the bedrock_server.exe file. Then on the **Images** section, click on the **Add** button and select the MCMODDLL dll file; then click on the **Inject** button
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/81709312/143133453-861be19d-86f5-4277-be48-488f8263e6cd.png" />
+</p>
+
+## plugins/RtP/RtP-cfg.txt
+
+When injected for the first time, the mod will create a settings file in the path mentioned above as the title of this section. It'll look something like this:
+```yaml
+logAll: true
+logArm: true
+logUpdates : true
+logMovement: true
+deleteBlocksOnExtension : false
+```
+`logAll` determines if the mod should log everything, in case you're lazy and don't want to change individual settings. If `logAll` is disabled, the mod will still log individual enabled settings. The following 3 settings determine if the mod should log extension and retraction, piston updates and pistons moving or being moved respectively. The last setting determines if pistons should act as if no blocks were in front of them even if there happened to be some. I honestly have no idea why anyone would want that but I don't really care either.
+
 ## 3rd Party Code
 
 - [MCMODDLL-CPP](https://github.com/zhkj-liuxiaohua/MCMODDLL-CPP)
