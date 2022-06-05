@@ -31,8 +31,6 @@ As of the time of writing this, the mod will log:
 
 ### Long Term TODO List
 
-### Planned Features
-
 <details>
 <summary></summary>
 <br>
@@ -42,8 +40,17 @@ As of the time of writing this, the mod will log:
   </ul> 
 </details>
 
+## 3rd Party Code
+
+- [MCMODDLL-CPP](https://github.com/zhkj-liuxiaohua/MCMODDLL-CPP)
+- [termcolor](https://github.com/ikalnytskyi/termcolor)
+- [mini-yaml](https://github.com/jimmiebergmann/mini-yaml)
+- [Detours](https://github.com/microsoft/Detours)
+
+To be able to compile this project, download [this](https://github.com/jimmiebergmann/mini-yaml/tree/master/yaml) folder and move it to `./ExampleMod`
+
 ## Special Thanks
 
-- **Kono** for aking the logo
+- **Kono** for making the logo
 - **[Player]** for writing the original BDS DLL modding guide and inspiring me to write a new, updated one in english
 - **! Pixel** for teaching me how BDS modding works

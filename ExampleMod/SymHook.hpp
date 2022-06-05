@@ -50,3 +50,7 @@ constexpr unsigned int MD5_8ea3c476e8f3596d47f45dcc40e7e5ce = 0x1261050;
 //?_hasBlockAttached@PistonBlockActor@@AEAA_NAEBVBlockPos@@@Z
 //private: bool __cdecl PistonBlockActor::_hasBlockAttached(BlockPos const&)
 constexpr unsigned int MD5_6f6187f91ebfd7ac5108b1391acfd722 = 0x1259ec0;
+
+//?_checkAttachedBlocks@PistonBlockActor@@AEAA_NAEAVBlockSource@@@Z
+//private: bool __cdecl PistonBlockActor::_checkAttachedBlocks(BlockSource&)
+constexpr unsigned int MD5_d7a00ac2d9adec414a3662b847fe2d7c = 0x1258c00;
