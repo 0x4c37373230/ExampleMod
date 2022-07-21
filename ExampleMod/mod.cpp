@@ -17,6 +17,9 @@ void mod_init()
 	std::cout << "Log Updates: " << cfgMan.shouldLogUpdates() << std::endl;
 	std::cout << "Log Movement: " << cfgMan.shouldLogMovement() << std::endl;
 	std::cout << "Block Deletion on Extension: " << cfgMan.shouldDeleteBlocks() << std::endl;
+	std::cout << "Should Ignore Some Pistons?: " << cfgMan.willIgnore() << std::endl;
+	std::cout << "Pistons to Ignore: " << std::endl;
+	cfgMan.pistonsToIgnore();
 }
 
 void mod_exit() 
@@ -33,6 +36,9 @@ std::string getCorrectArmBlock(that)
 
 void pistonLogger(that, char state, BlockPos* pistonCoords)
 {
+	if (cfgMan.shouldIgnore(pistonCoords))
+		return;
+
 	std::cout
 		<< "Piston Action\n" << termcolor::bright_green
 		<< "\tPiston Type: " << termcolor::bright_magenta << getCorrectArmBlock(THAT) << termcolor::bright_green << std::endl;

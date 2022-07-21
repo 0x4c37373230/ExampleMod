@@ -83,4 +83,9 @@
       <Filter>Resource Files</Filter>
     </Library>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ExampleConfig.yaml">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

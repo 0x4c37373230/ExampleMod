@@ -1,0 +1,16 @@
+logAll: true
+logArm: true
+logUpdates : true
+logMovement: true
+deleteBlocksOnExtension : false
+pistonsToBeIgnored: 3
+ignorePistons:
+    - x: 233
+      y: 64
+      z: -43
+    - x: 44
+      y: 20
+      z: 1
+    - x: -34
+      y: 12
+      z: -21

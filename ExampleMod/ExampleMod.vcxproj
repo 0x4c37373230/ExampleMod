@@ -186,6 +186,9 @@
   <ItemGroup>
     <Library Include="detours\detours.lib" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ExampleConfig.yaml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

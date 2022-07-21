@@ -16,6 +16,7 @@ As of the time of writing this, the mod will log:
       <li>Pistons being moved</li>
   </ul> 
   As well as their types, coordinates and the amount of gameticks spent since the last event
+If desired, one can also 'tell' the mod to ignore pistons at certain coordinates (see YAML example below)
 </details>
 
 ### Planned Features
@@ -34,7 +35,6 @@ As of the time of writing this, the mod will log:
 <summary></summary>
 <br>
    <ul>
-      <li>Setting to ignore pistons at the specified coordinates</li>
       <li>Piston "naming" to recognize them easily</li>
   </ul> 
 </details>
@@ -58,6 +58,21 @@ logMovement: true
 deleteBlocksOnExtension : false
 ```
 `logAll` determines if the mod should log everything, in case you're lazy and don't want to change individual settings. If `logAll` is disabled, the mod will still log individual enabled settings. The following 3 settings determine if the mod should log extension and retraction, piston updates and pistons moving or being moved respectively. The last setting determines if pistons should act as if no blocks were in front of them even if there happened to be some. I honestly have no idea why anyone would want that but I don't really care either.
+You can also add these 2 settings...
+```yaml
+pistonsToBeIgnored: 
+ignorePistons:
+    - x:
+      y:
+      z:
+    - x:
+      y:
+      z:
+    - x:
+      y:
+      z:
+```
+if you'd like to exclude some pistons from being monitored. Just add x, y and z with their respective values as many times as pistons you'd like to ignore on the list, and add the number of pistons to be ignored in its respective variable(?)
 
 ## 3rd Party Code
 
