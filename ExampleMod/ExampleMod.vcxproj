@@ -163,6 +163,7 @@
     <ClInclude Include="ConfigManager.hpp" />
     <ClInclude Include="detours.h" />
     <ClInclude Include="detver.h" />
+    <ClInclude Include="EventsManager.hpp" />
     <ClInclude Include="Minecraft.hpp" />
     <ClInclude Include="mod.h" />
     <ClInclude Include="pch.h" />
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="EventsManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

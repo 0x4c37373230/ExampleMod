@@ -3,6 +3,7 @@
 #include "Minecraft.hpp"
 #include "SymHook.hpp"
 #include "ConfigManager.hpp"
+#include "EventsManager.hpp"
 #include "./termcolor/termcolor"
 
 #define that void* THAT
@@ -36,25 +37,28 @@ void pistonLogger(that, char state, BlockPos* pistonCoords)
 		<< "Piston Action\n" << termcolor::bright_green
 		<< "\tPiston Type: " << termcolor::bright_magenta << getCorrectArmBlock(THAT) << termcolor::bright_green << std::endl;
 
+	std::cout << "\tPiston Action: " << termcolor::bright_magenta;
+
 	switch (state)
 	{
 	case 'e':
-		std::cout << "\tPiston Action: " << termcolor::bright_magenta << "Extending" << std::endl;
+		std::cout << "Extending";
 		break;
 	case 'r':
-		std::cout << "\tPiston Action: " << termcolor::bright_magenta << "Retracting" << std::endl;
+		std::cout << "Retracting";
 		break;
 	case 'm':
-		std::cout << "\tPiston Action: " << termcolor::bright_magenta << "Moved" << std::endl;
+		std::cout << "Moved";
 		break;
 	default:
-		std::cout << "\tPiston Action: " << termcolor::bright_magenta << "Updated" << std::endl;
+		std::cout << "Updated";
 	}
 
-	std::cout << termcolor::bright_green
+	std::cout << std::endl << termcolor::bright_green
 		// Calls PistonBlockActor::_hasBlocksAttached
-		<< "\tBlocks Attached?: " << termcolor::bright_magenta << SYMCALL(bool, MD5_8ea3c476e8f3596d47f45dcc40e7e5ce, THAT, pistonCoords) << termcolor::bright_green
-		<< "\tAt: " << termcolor::bright_magenta << pistonCoords->x << ", " << pistonCoords->y << ", " << pistonCoords->z << termcolor::reset << std::endl;
+		<< "\tBlocks Attached?: " << termcolor::bright_magenta << SYMCALL(bool, MD5_8ea3c476e8f3596d47f45dcc40e7e5ce, THAT, pistonCoords) << std::endl << termcolor::bright_green
+		<< "\tAt: " << termcolor::bright_magenta << pistonCoords->x << ", " << pistonCoords->y << ", " << pistonCoords->z << std::endl << termcolor::bright_green
+		<< "\tTime Since Last Event: " << termcolor::bright_magenta << getTimeSinceLastEvent() << "gt" << termcolor::reset << std::endl;
 }
 
 // Hooks into PistonBlockActor::_checkAttachedBlocks

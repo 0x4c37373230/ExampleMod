@@ -15,7 +15,7 @@ As of the time of writing this, the mod will log:
       <li>Piston retraction</li>
       <li>Pistons being moved</li>
   </ul> 
-  As well as their types and coordinates
+  As well as their types, coordinates and the amount of gameticks spent since the last event
 </details>
 
 ### Planned Features
@@ -25,7 +25,6 @@ As of the time of writing this, the mod will log:
 <br>
    <ul>
       <li>Logging when and why a piston was unable to extend</li>
-      <li>Logging in which tick something happens to a piston</li>
   </ul> 
 </details>
 
