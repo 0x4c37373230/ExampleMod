@@ -6,27 +6,35 @@
 #include "EventsManager.hpp"
 #include "./termcolor/termcolor"
 
-#define that void* THAT
+// ReSharper disable once CppInconsistentNaming
+#define that void* THAT  // NOLINT(bugprone-macro-parentheses)
 
-const ConfigManager cfgMan{};
+const ConfigManager CFG_MAN{};
 
-void mod_init() 
+void modInit() 
 {
+	std::cout << "================================================\n";
 	std::cout << "Runtime Pistorder has been successfully injected\n";
-	std::cout << "Log Arm Updates: " << cfgMan.shouldLogArm() << std::endl;
-	std::cout << "Log Updates: " << cfgMan.shouldLogUpdates() << std::endl;
-	std::cout << "Log Movement: " << cfgMan.shouldLogMovement() << std::endl;
-	std::cout << "Block Deletion on Extension: " << cfgMan.shouldDeleteBlocks() << std::endl;
-	std::cout << "Should Ignore Some Pistons?: " << cfgMan.willIgnore() << std::endl;
-	std::cout << "Pistons to Ignore: " << std::endl;
-	cfgMan.pistonsToIgnore();
+	std::cout << "\tLog Arm Updates: " << CFG_MAN.shouldLogArm() << std::endl;
+	std::cout << "\tLog Updates: " << CFG_MAN.shouldLogUpdates() << std::endl;
+	std::cout << "\tLog Movement: " << CFG_MAN.shouldLogMovement() << std::endl;
+	std::cout << "\tBlock Deletion on Extension: " << CFG_MAN.shouldDeleteBlocks() << std::endl;
+	std::cout << "\tShould Ignore Some Pistons?: " << CFG_MAN.willIgnore() << std::endl;
+	std::cout << "\tPistons to Ignore: " << std::endl;
+	CFG_MAN.pistonsToIgnore();
+	std::cout << "================================================\n";
 }
 
-void mod_exit() 
+void modExit() 
 {
 }
 
 // This function is a replica of 'PistonBlockActor::getCorrectArmBlock'. Keep in mind the offset (this + 200) may need to be updated along with the RVAs
+/**
+ * \brief Determines the piston type
+ * \param THAT PistonBlockActor this pointer 
+ * \return Piston type, can be either "Sticky" or "Regular"
+ */
 std::string getCorrectArmBlock(that)
 {
 	if (*(static_cast<BYTE*>(THAT) + 200))
@@ -34,9 +42,15 @@ std::string getCorrectArmBlock(that)
 	return "Regular";
 }
 
-void pistonLogger(that, char state, BlockPos* pistonCoords)
+/**
+ * \brief Outputs useful piston information
+ * \param THAT PistonBlockActor this pointer
+ * \param state Whether the piston is extending, or moving
+ * \param pistonCoords Piston position in the world
+ */
+void pistonLogger(that, const char state, BlockPos* pistonCoords)
 {
-	if (cfgMan.shouldIgnore(pistonCoords))
+	if (CFG_MAN.shouldIgnore(pistonCoords))
 		return;
 
 	std::cout
@@ -70,7 +84,7 @@ void pistonLogger(that, char state, BlockPos* pistonCoords)
 // Hooks into PistonBlockActor::_checkAttachedBlocks
 THook(char, MD5_d7a00ac2d9adec414a3662b847fe2d7c, that, BlockSource* a2)
 {
-	if (cfgMan.shouldDeleteBlocks())
+	if (CFG_MAN.shouldDeleteBlocks())
 		return '1';
 
 	return original(THAT, a2);
@@ -80,18 +94,18 @@ THook(char, MD5_d7a00ac2d9adec414a3662b847fe2d7c, that, BlockSource* a2)
 THook(bool, MD5_52ca93bd7ea30062b1258c8d2c9d842f, that, BlockSource* a2, BlockPos* a3)
 {
 	// Converts the PistonBlock* into a PistonBlockActor* by calling BlockSource::getBlockEntity
-	auto pBlockActor{ SYMCALL(BlockActor*, MD5_638cb3beca85bc61a794f129df3ea53f, a2, a3) };
+	const auto pBlockActor{ SYMCALL(BlockActor*, MD5_0adb196a370e919a5ed2f18aad3074e3, a2, a3) };
 
 	// Calls PistonBlockActor::isExtending
-	if (SYMCALL(bool, MD5_1a3dadff7530cb78717ef6ade0566ab1, pBlockActor) && cfgMan.shouldLogArm())
+	if (SYMCALL(bool, MD5_1a3dadff7530cb78717ef6ade0566ab1, pBlockActor) && CFG_MAN.shouldLogArm())
 		pistonLogger(pBlockActor, 'e', a3);
 	// Calls PistonBlockActor::isRetracting
-	else if (SYMCALL(bool, MD5_a98435288228c1d7b6dad513eaecdb78, pBlockActor) && cfgMan.shouldLogArm())
+	else if (SYMCALL(bool, MD5_a98435288228c1d7b6dad513eaecdb78, pBlockActor) && CFG_MAN.shouldLogArm())
 		pistonLogger(pBlockActor, 'r', a3);
 	// Calls PistonBlockActor::isMoving
-	else if (SYMCALL(bool, MD5_8ea3c476e8f3596d47f45dcc40e7e5ce, pBlockActor) && cfgMan.shouldLogMovement())
+	else if (SYMCALL(bool, MD5_8ea3c476e8f3596d47f45dcc40e7e5ce, pBlockActor) && CFG_MAN.shouldLogMovement())
 		pistonLogger(pBlockActor, 'm', a3);
-	else if (cfgMan.shouldLogUpdates())
+	else if (CFG_MAN.shouldLogUpdates())
 		pistonLogger(pBlockActor, 'u', a3);
 
 	return original(THAT, a2, a3);

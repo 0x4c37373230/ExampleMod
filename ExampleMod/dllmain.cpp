@@ -1,26 +1,27 @@
-﻿//1.18.0.2
+﻿//1.20.1.02
 #include "pch.h"
 
-void mod_init();
-void mod_exit();
+void modInit();
+void modExit();
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
+BOOL APIENTRY DllMain( const HMODULE hModule,
+                       const DWORD  ulReasonForCall,
                        LPVOID lpReserved
                      )
 {
-	switch (ul_reason_for_call)
+	switch (ulReasonForCall)
     {
         case DLL_PROCESS_ATTACH:
- 		    mod_init();
+ 		    modInit();
 		    break;
 	    case DLL_THREAD_ATTACH:
-		    break;
         case DLL_THREAD_DETACH:
 		    break;
         case DLL_PROCESS_DETACH:
-		    mod_exit();
+		    modExit();
             break;
+	default:
+        break;
     }
     return TRUE;
 }

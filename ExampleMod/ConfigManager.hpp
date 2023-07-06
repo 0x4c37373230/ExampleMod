@@ -1,18 +1,18 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
 #include "pch.h"
+
+#include <fstream>
+#include <iostream>
+#include <vector>
+
 #include "Minecraft.hpp"
 #include "./yaml/Yaml.hpp"
-#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING // I am using C++14 and I'm lazy
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING // I am using C++14 and I'm lazy  // NOLINT(clang-diagnostic-reserved-macro-identifier, bugprone-reserved-identifier)
 #include <experimental/filesystem>
 
 class ConfigManager
 {
-private:
 	bool mLogAll{ true };
 	bool mLogArm{ true };
 	bool mLogUpdates{ true };
@@ -21,7 +21,7 @@ private:
 	int mPistonsToIgnore{};
 	std::vector<BlockPos> mIgnoreList{};
 
-	Yaml::Node root;
+	Yaml::Node mRoot;
 
 	bool shouldLogAll() const { return mLogAll; }
 public:
@@ -38,26 +38,26 @@ public:
 		}
 		else
 		{
-			Yaml::Parse(root, "./plugins/RtP/RtP-cfg.txt");
+			Parse(mRoot, "./plugins/RtP/RtP-cfg.txt");
 
-			mLogAll = root["logAll"].As<bool>();
-			mLogArm = root["logArm"].As<bool>();
-			mLogUpdates = root["logUpdates"].As<bool>();
-			mLogMovement = root["logMovement"].As<bool>();
-			mDeleteBlocksOnExtension = root["deleteBlocksOnExtension"].As<bool>();
-			mPistonsToIgnore = root["pistonsToBeIgnored"].As<int>();
+			mLogAll = mRoot["logAll"].As<bool>();
+			mLogArm = mRoot["logArm"].As<bool>();
+			mLogUpdates = mRoot["logUpdates"].As<bool>();
+			mLogMovement = mRoot["logMovement"].As<bool>();
+			mDeleteBlocksOnExtension = mRoot["deleteBlocksOnExtension"].As<bool>();
+			mPistonsToIgnore = mRoot["pistonsToBeIgnored"].As<int>();
 
 			if (mPistonsToIgnore)
 			{
 				for (int i = 0; i < mPistonsToIgnore; i++)
 				{
-					mIgnoreList.push_back({ root["ignorePistons"][i]["x"].As<int>(),
-											root["ignorePistons"][i]["y"].As<int>(),
-											root["ignorePistons"][i]["z"].As<int>() });
+					mIgnoreList.push_back({ mRoot["ignorePistons"][i]["x"].As<int>(),
+											mRoot["ignorePistons"][i]["y"].As<int>(),
+											mRoot["ignorePistons"][i]["z"].As<int>() });
 				}
 			}
 		}
-	};
+	}
 
 	bool shouldLogArm() const { return mLogArm || mLogAll; }
 	bool shouldLogUpdates() const { return mLogUpdates || mLogAll; }
@@ -71,7 +71,12 @@ public:
 			std::cout << "\t" << mIgnoreList[i].x << ", " << mIgnoreList[i].y << ", " << mIgnoreList[i].z << "\n";
 		}
 	}
-	bool shouldIgnore(BlockPos* pistonPos) const 
+	/**
+	 * \brief Determines whether certain piston events should be ignored by comparing piston positions
+	 * \param pistonPos Position of the piston that did something
+	 * \return a boolean: true if the piston event should be ignored, false if it should be logged
+	 */
+	bool shouldIgnore(const BlockPos* pistonPos) const 
 	{ 
 		for (int i = 0; i < mPistonsToIgnore; i++) 
 		{

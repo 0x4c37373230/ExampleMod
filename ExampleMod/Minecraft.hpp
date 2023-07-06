@@ -40,5 +40,4 @@ class Actor
 public:
 	int getDimension() const { return *reinterpret_cast<int*>(reinterpret_cast<VA>(this) + 204); }
 	const std::string* getNameTag() const { return SYMCALL(const std::string *, MD5_7044ab83168b0fd345329e6566fd47fd, this); }
-	Vec3* getPos() const { return SYMCALL(Vec3 *, MD5_cecb628ba58436266fb3ca43d5d88fdc, this); }
 };
